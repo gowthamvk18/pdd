@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillSync | Trade skills, not money.</title>
+    <meta name="description" content="Teach what you know. Learn what you love. The completely free peer-to-peer knowledge exchange.">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Lucide Icons via unpkg -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- Sticky Nav -->
+    <nav class="navbar">
+        <a href="#" class="logo-group group">
+            <div class="logo-tile">
+                <img src="logo.png" alt="SkillSync Handshake Logo" class="hand-shake-svg" style="object-fit: contain;">
+            </div>
+            <span>Skill<span class="wordmark-sync">Sync</span></span>
+        </a>
+        <div class="nav-links">
+            <a href="#how">How it works</a>
+            <a href="#skills">Skills</a>
+            <a href="#stories">Stories</a>
+        </div>
+        <div class="nav-actions">
+            <a href="#" class="btn btn-ghost">Sign in</a>
+            <a href="#cta" class="btn btn-dark">Join free</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Split Screen -->
+        <section class="hero container">
+            <div class="hero-left">
+                <div class="pill-badge">
+                    <i data-lucide="sparkles" class="sparkle" width="16" height="16"></i>
+                    Trade skills, not money
+                </div>
+                <h1>
+                    Teach what you <span class="highlight-underline">know</span>.<br>
+                    Learn what you <span class="clay-italic">love.</span>
+                </h1>
+                <p class="hero-subcopy">
+                    Swap an hour of your expertise for an hour of someone else’s. 
+                    No money, no subscriptions. Just pure human connection and knowledge.
+                </p>
+                <div class="hero-actions">
+                    <a href="#cta" class="btn btn-dark">
+                        Start your first swap
+                        <i data-lucide="arrow-right" class="icon-arrow-right" width="18" height="18" style="margin-left: 8px;"></i>
+                    </a>
+                    <a href="#how" class="btn btn-outline">See how it works</a>
+                </div>
+                <div class="social-proof">
+                    <div class="avatars">
+                        <div class="avatar-dot"></div>
+                        <div class="avatar-dot"></div>
+                        <div class="avatar-dot"></div>
+                        <div class="avatar-dot"></div>
+                    </div>
+                    <span><strong>12,000+</strong> exchanges across 84 countries</span>
+                </div>
+            </div>
+            <div class="hero-right">
+                <canvas id="hero-canvas"></canvas>
+            </div>
+        </section>
+
+        <!-- Skill Marquee -->
+        <section class="marquee-container">
+            <div class="marquee-content">
+                <div class="skill-pill">UI Design</div>
+                <div class="skill-pill">Conversational Spanish</div>
+                <div class="skill-pill">Watercolor Painting</div>
+                <div class="skill-pill">React & TypeScript</div>
+                <div class="skill-pill">Vinyasa Yoga</div>
+                <div class="skill-pill">Creative Writing</div>
+                <div class="skill-pill">Sourdough Baking</div>
+                <div class="skill-pill">3D Modeling</div>
+                <!-- Duplicate for seamless scroll -->
+                <div class="skill-pill">UI Design</div>
+                <div class="skill-pill">Conversational Spanish</div>
+                <div class="skill-pill">Watercolor Painting</div>
+                <div class="skill-pill">React & TypeScript</div>
+                <div class="skill-pill">Vinyasa Yoga</div>
+                <div class="skill-pill">Creative Writing</div>
+                <div class="skill-pill">Sourdough Baking</div>
+                <div class="skill-pill">3D Modeling</div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section id="how" class="section-padding">
+            <h2 class="section-title">How the exchange works</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>List your skill</h3>
+                    <p>Tell us what you're good at, whether it's Python, poetry, or planting tomatoes. It only takes a minute.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Find a match</h3>
+                    <p>Search for what you want to learn. Our platform connects you with someone looking for exactly what you offer.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Swap an hour</h3>
+                    <p>Meet over video. Spend 30 minutes teaching, and 30 minutes learning. <span class="clay-italic">Zero invoices.</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <section id="skills" class="section-padding" style="background-color: var(--card-color);">
+            <div class="container">
+                <h2 class="section-title" style="margin-bottom: 1rem;">Explore by category</h2>
+                <p style="text-align: center; color: var(--clay); margin-bottom: 4rem;">Find exactly what you want to learn.</p>
+                
+                <div class="categories-grid">
+                    <a href="#" class="category-tile">
+                        <div class="category-content">
+                            <i data-lucide="terminal" class="icon-wrap"></i>
+                            <div>
+                                <div class="cat-title">Tech & Code</div>
+                                <div class="cat-count">3,204 swappers</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="category-tile">
+                        <div class="category-content">
+                            <i data-lucide="pen-tool" class="icon-wrap"></i>
+                            <div>
+                                <div class="cat-title">Design & Art</div>
+                                <div class="cat-count">2,841 swappers</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="category-tile">
+                        <div class="category-content">
+                            <i data-lucide="music" class="icon-wrap"></i>
+                            <div>
+                                <div class="cat-title">Music & Audio</div>
+                                <div class="cat-count">1,102 swappers</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="category-tile">
+                        <div class="category-content">
+                            <i data-lucide="globe" class="icon-wrap"></i>
+                            <div>
+                                <div class="cat-title">Languages</div>
+                                <div class="cat-count">4,590 swappers</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="category-tile">
+                        <div class="category-content">
+                            <i data-lucide="camera" class="icon-wrap"></i>
+                            <div>
+                                <div class="cat-title">Photo & Film</div>
+                                <div class="cat-count">945 swappers</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="category-tile">
+                        <div class="category-content">
+                            <i data-lucide="chef-hat" class="icon-wrap"></i>
+                            <div>
+                                <div class="cat-title">Cooking</div>
+                                <div class="cat-count">1,320 swappers</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="category-tile">
+                        <div class="category-content">
+                            <i data-lucide="activity" class="icon-wrap"></i>
+                            <div>
+                                <div class="cat-title">Fitness & Health</div>
+                                <div class="cat-count">876 swappers</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="category-tile">
+                        <div class="category-content">
+                            <i data-lucide="book-open" class="icon-wrap"></i>
+                            <div>
+                                <div class="cat-title">Writing</div>
+                                <div class="cat-count">1,650 swappers</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stories -->
+        <section id="stories" class="section-padding">
+            <h2 class="section-title">Stories from the network</h2>
+            <div class="stories-grid">
+                <div class="story-card" style="background: linear-gradient(180deg, var(--bg-color), var(--card-color));">
+                    <i data-lucide="quote" class="quote-icon" width="32" height="32"></i>
+                    <p class="story-text">"I taught a woman in Kyoto how to set up a React app, and she taught me how to make authentic matcha. It's the internet at its absolute best."</p>
+                    <div class="story-author">
+                        <div class="avatar-dot" style="background: #333;"></div>
+                        <div class="author-info">
+                            <h4>David L.</h4>
+                            <p>React ⇄ Japanese Tea</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="story-card" style="background: linear-gradient(180deg, #f5f0e6, #e9dfcc);">
+                    <i data-lucide="quote" class="quote-icon" width="32" height="32"></i>
+                    <p class="story-text">"As a freelance illustrator, I couldn't afford accounting advice. I traded two hours of logo design for two hours of bookkeeping help. Life changing."</p>
+                    <div class="story-author">
+                        <div class="avatar-dot" style="background: #8b7355;"></div>
+                        <div class="author-info">
+                            <h4>Sarah M.</h4>
+                            <p>Illustration ⇄ Accounting</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="story-card" style="background: linear-gradient(180deg, var(--bg-color), var(--card-color));">
+                    <i data-lucide="quote" class="quote-icon" width="32" height="32"></i>
+                    <p class="story-text">"I've learned more conversational Italian in three weeks of swapping guitar lessons than I did in three years of using language apps."</p>
+                    <div class="story-author">
+                        <div class="avatar-dot" style="background: #c9b99a;"></div>
+                        <div class="author-info">
+                            <h4>Marcus T.</h4>
+                            <p>Guitar ⇄ Italian</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section id="cta" class="section-padding">
+            <div class="cta-container">
+                <div class="cta-radial-dots"></div>
+                <div class="cta-orb cta-orb-1"></div>
+                <div class="cta-orb cta-orb-2"></div>
+                
+                <div class="cta-content">
+                    <h2 class="display-font">Your first skill swap is <span class="clay-italic">one hour</span> away.</h2>
+                    <a href="#" class="btn" style="background: var(--bg-color); color: var(--foreground); padding: 1rem 2.5rem; font-size: 1.125rem;">
+                        Join the network free
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-col-1">
+                <a href="#" class="logo-group group" style="margin-bottom: 1rem;">
+                    <div class="logo-tile">
+                        <img src="logo.png" alt="SkillSync Handshake Logo" class="hand-shake-svg" style="object-fit: contain;">
+                    </div>
+                    <span>Skill<span class="wordmark-sync">Sync</span></span>
+                </a>
+                <p class="footer-tagline">The peer-to-platform where knowledge is the only currency.</p>
+            </div>
+            
+            <div class="footer-links">
+                <div class="link-col">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="#">Explore Skills</a></li>
+                        <li><a href="#">How it Works</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                        <li><a href="#">Safety Guidelines</a></li>
+                    </ul>
+                </div>
+                <div class="link-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Manifesto</a></li>
+                        <li><a href="#">Open Roles</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 SkillSync Network.</p>
+            <div class="forever-free">
+                <div class="pulse-dot"></div>
+                100% free, forever
+            </div>
+        </div>
+    </footer>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <!-- Inline Three.js 3D Visual for Hero Section -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+            }
+        }
+    </script>
+    <script type="module">
+        import * as THREE from 'three';
+
+        // Set up scene in the hero right container
+        const container = document.querySelector('.hero-right');
+        const canvas = document.querySelector('#hero-canvas');
+        
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        
+        // Match container size
+        const resize = () => {
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        };
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+        camera.position.z = 12;
+
+        // Create warm floating objects (abstract representation of skills/exchange)
+        const geometries = [
+            new THREE.TorusGeometry(1.5, 0.4, 16, 50),
+            new THREE.IcosahedronGeometry(1.2, 0),
+            new THREE.OctahedronGeometry(1.5, 0),
+            new THREE.SphereGeometry(1, 32, 32)
+        ];
+
+        // Warm color palette materials
+        const materials = [
+            new THREE.MeshStandardMaterial({ color: 0x8b7355, roughness: 0.2, metalness: 0.1 }), // Clay
+            new THREE.MeshStandardMaterial({ color: 0xc9b99a, roughness: 0.4, metalness: 0.2 }), // Sand
+            new THREE.MeshStandardMaterial({ color: 0x4a3b2c, roughness: 0.3, metalness: 0.5 })  // Espresso
+        ];
+
+        const objects = [];
+
+        // Spawn a few objects
+        for(let i=0; i<6; i++) {
+            const geo = geometries[Math.floor(Math.random() * geometries.length)];
+            const mat = materials[Math.floor(Math.random() * materials.length)];
+            const mesh = new THREE.Mesh(geo, mat);
+            
+            // Random positions
+            mesh.position.x = (Math.random() - 0.5) * 8;
+            mesh.position.y = (Math.random() - 0.5) * 8;
+            mesh.position.z = (Math.random() - 0.5) * 4;
+            
+            // Random rotations
+            mesh.rotation.x = Math.random() * Math.PI;
+            mesh.rotation.y = Math.random() * Math.PI;
+            
+            // Store random rotation speeds
+            mesh.userData = {
+                rx: (Math.random() - 0.5) * 0.01,
+                ry: (Math.random() - 0.5) * 0.01,
+                yOffset: mesh.position.y,
+                floatSpeed: 0.001 + Math.random() * 0.002
+            };
+            
+            scene.add(mesh);
+            objects.push(mesh);
+        }
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xfff5e6, 0.8); // Warm ambient
+        scene.add(ambientLight);
+
+        const dirLight = new THREE.DirectionalLight(0xffffff, 2);
+        dirLight.position.set(5, 10, 7);
+        scene.add(dirLight);
+        
+        const backLight = new THREE.DirectionalLight(0xc9b99a, 1.5);
+        backLight.position.set(-5, -5, -5);
+        scene.add(backLight);
+
+        // Animation Loop
+        const clock = new THREE.Clock();
+        
+        // Mouse interaction for subtle camera shift
+        let mouseX = 0;
+        let mouseY = 0;
+        container.addEventListener('mousemove', (e) => {
+            const rect = container.getBoundingClientRect();
+            mouseX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+            mouseY = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const time = clock.getElapsedTime();
+
+            objects.forEach((mesh, index) => {
+                mesh.rotation.x += mesh.userData.rx;
+                mesh.rotation.y += mesh.userData.ry;
+                // Gentle float
+                mesh.position.y = mesh.userData.yOffset + Math.sin(time + index) * 0.5;
+            });
+
+            // Camera subtle follow
+            camera.position.x += (mouseX * 1 - camera.position.x) * 0.05;
+            camera.position.y += (mouseY * 1 - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        }
+
+        // Initialize sizing
+        resize();
+        window.addEventListener('resize', resize);
+        
+        // Start loop
+        animate();
+    </script>
+</body>
+</html>
