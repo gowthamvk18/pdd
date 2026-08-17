@@ -113,7 +113,7 @@ export const Explore = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-28 md:pb-8">
       {/* Dashboard Topbar */}
       <div className="bg-card border-b border-border px-6 py-4 flex justify-between items-center sticky top-0 z-30 shadow-sm transition-colors duration-300">
         <div className="flex items-center gap-4">
@@ -231,15 +231,19 @@ export const Explore = () => {
                     </div>
                   )}
                   <div className="flex gap-4 mb-4">
-                    <div className="w-14 h-14 bg-primary/5 text-primary rounded-full flex items-center justify-center font-bold text-xl shrink-0">
-                      {u.profile.full_name?.charAt(0) || 'U'}
+                    <div className="w-14 h-14 bg-primary/5 text-primary rounded-full flex items-center justify-center font-bold text-xl shrink-0 overflow-hidden">
+                      {u.profile.avatar_url ? (
+                        <img src={u.profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
+                      ) : (
+                        u.profile.full_name?.charAt(0) || 'U'
+                      )}
                     </div>
                     <div>
                       <h3 className="font-bold text-lg leading-tight text-foreground">
                         {u.profile.full_name || "SkillSync Member"}
                       </h3>
                       <p className="text-sm text-foreground/50 flex items-center gap-1">
-                        <MapPin className="w-3 h-3" /> {u.profile.location || "Location hidden"}
+                        <MapPin className="w-3 h-3" /> {u.profile.show_location ? (u.profile.location || "No location provided") : "Location hidden"}
                       </p>
                     </div>
                   </div>

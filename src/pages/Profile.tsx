@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { api } from '../lib/api';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, Save, Loader2, MapPin, Plus, X, Star, ExternalLink, Trash2, Briefcase } from 'lucide-react';
+import { ChevronLeft, Save, Loader2, MapPin, Plus, X, Star, ExternalLink, Trash2, Briefcase, Camera } from 'lucide-react';
 import { NotificationBell } from '../components/NotificationBell';
 
 export const Profile = () => {
@@ -15,6 +15,10 @@ export const Profile = () => {
   const [fullName, setFullName] = useState('');
   const [bio, setBio] = useState('');
   const [location, setLocation] = useState('');
+  const [avatarUrl, setAvatarUrl] = useState('');
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
+  const [isPublic, setIsPublic] = useState(true);
+  const [showLocation, setShowLocation] = useState(true);
   
   // Skills State
   const [allSkills, setAllSkills] = useState<any[]>([]);
@@ -42,6 +46,9 @@ export const Profile = () => {
           setFullName((profileData as any)?.full_name || '');
           setBio((profileData as any)?.bio || '');
           setLocation((profileData as any)?.location || '');
+          setAvatarUrl((profileData as any)?.avatar_url || '');
+          setIsPublic((profileData as any)?.is_public ?? true);
+          setShowLocation((profileData as any)?.show_location ?? true);
           setAllSkills(skillsData || []);
           setUserSkills(userSkillsData || []);
           setReviews(reviewsData || []);
@@ -58,7 +65,10 @@ export const Profile = () => {
       await api.updateProfile(user.id, {
         full_name: fullName,
         bio,
-        location
+        location,
+        avatar_url: avatarUrl,
+        is_public: isPublic,
+        show_location: showLocation
       });
       alert('Profile saved successfully!');
     } catch (err) {
@@ -66,6 +76,32 @@ export const Profile = () => {
       alert('Failed to save profile');
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0 || !user) return;
+    const file = e.target.files[0];
+    
+    setUploadingAvatar(true);
+    try {
+      const url = await api.uploadAvatar(user.id, file);
+      setAvatarUrl(url);
+      
+      // Auto-save the new avatar to the profile
+      await api.updateProfile(user.id, {
+        full_name: fullName,
+        bio,
+        location,
+        avatar_url: url,
+        is_public: isPublic,
+        show_location: showLocation
+      });
+    } catch (err) {
+      console.error(err);
+      alert('Failed to upload image. Please try again.');
+    } finally {
+      setUploadingAvatar(false);
     }
   };
 
@@ -130,7 +166,7 @@ export const Profile = () => {
   const avgRating = reviews.length > 0 ? (reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length).toFixed(1) : null;
 
   return (
-    <div className="min-h-screen bg-background pb-20 transition-colors duration-300">
+    <div className="min-h-screen bg-background pb-28 md:pb-8 transition-colors duration-300">
       <div className="sticky top-0 bg-card/90 backdrop-blur-md z-40 px-6 pt-12 pb-4 flex justify-between items-center border-b border-border">
         <button onClick={() => navigate('/dashboard')} className="text-gray-800"><ChevronLeft className="w-6 h-6" /></button>
         <h1 className="font-bold text-lg flex-1 text-center ml-12">Edit Profile</h1>
@@ -147,10 +183,24 @@ export const Profile = () => {
         {/* Basic Info Section */}
         <div>
           <div className="flex justify-center mb-8">
-            <div className="relative">
-              <div className="w-24 h-24 bg-primary/10 text-primary rounded-full flex items-center justify-center text-2xl font-bold">
-                {fullName?.charAt(0) || user?.email?.charAt(0)}
+            <div className="relative group">
+              <div className="w-24 h-24 bg-primary/10 text-primary rounded-full flex items-center justify-center text-2xl font-bold overflow-hidden border-2 border-transparent group-hover:border-primary transition-colors">
+                {avatarUrl ? (
+                  <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+                ) : (
+                  fullName?.charAt(0) || user?.email?.charAt(0)
+                )}
               </div>
+              <label className="absolute inset-0 flex items-center justify-center bg-black/50 text-white rounded-full opacity-0 group-hover:opacity-100 cursor-pointer transition-opacity">
+                {uploadingAvatar ? <Loader2 className="w-6 h-6 animate-spin" /> : <Camera className="w-6 h-6" />}
+                <input 
+                  type="file" 
+                  accept="image/*" 
+                  className="hidden" 
+                  onChange={handleAvatarUpload} 
+                  disabled={uploadingAvatar}
+                />
+              </label>
             </div>
           </div>
           
@@ -186,6 +236,36 @@ export const Profile = () => {
                   className="bg-transparent outline-none flex-1 text-foreground" 
                 />
               </div>
+            </div>
+          </div>
+        </div>
+
+        <hr className="border-border" />
+
+        {/* Privacy Settings Section */}
+        <div>
+          <h2 className="text-xl font-bold mb-6">Privacy Settings</h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between p-4 bg-muted border border-border rounded-xl">
+              <div>
+                <h3 className="font-bold text-foreground">Public Profile</h3>
+                <p className="text-sm text-foreground/60">Allow others to find you in Explore and Recommendations.</p>
+              </div>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" className="sr-only peer" checked={isPublic} onChange={(e) => setIsPublic(e.target.checked)} />
+                <div className="w-11 h-6 bg-border peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+              </label>
+            </div>
+            
+            <div className="flex items-center justify-between p-4 bg-muted border border-border rounded-xl">
+              <div>
+                <h3 className="font-bold text-foreground">Show Location</h3>
+                <p className="text-sm text-foreground/60">Display your city/country to other users.</p>
+              </div>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" className="sr-only peer" checked={showLocation} onChange={(e) => setShowLocation(e.target.checked)} />
+                <div className="w-11 h-6 bg-border peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+              </label>
             </div>
           </div>
         </div>

@@ -1,0 +1,40 @@
+name: SkillSync E2E Tests & Load Testing
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  e2e-and-load-test:
+    name: Run E2E Test Suite & Load Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Selenium Tests Dependencies
+        run: |
+          cd selenium_tests
+          npm install
+
+      - name: Run E2E Test Suite, Multi-Tab Sync & 100-VU Load Test
+        run: |
+          cd selenium_tests
+          npm run all
+
+      - name: Upload Excel Test Report Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SkillSync_E2E_Test_Report
+          path: selenium_tests/SkillSync_E2E_Test_Report.xlsx
+          retention-days: 30

@@ -6,6 +6,7 @@ import { Dashboard } from './pages/Dashboard'
 import { Profile } from './pages/Profile'
 import { Onboarding } from './pages/Onboarding'
 import { Settings } from './pages/Settings'
+import { AICoach } from './pages/AICoach'
 
 import { Explore } from './pages/Explore'
 import { Messages } from './pages/Messages'
@@ -28,6 +29,7 @@ const AppContent = () => {
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/explore" element={<Explore />} />
+          <Route path="/coach" element={<AICoach />} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />

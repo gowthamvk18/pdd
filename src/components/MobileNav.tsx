@@ -1,4 +1,4 @@
-import { Home, Search, MessageCircle, User } from 'lucide-react';
+import { Home, Search, MessageCircle, User, Sparkles } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export const MobileNav = () => {
@@ -8,6 +8,7 @@ export const MobileNav = () => {
   const navItems = [
     { icon: Home, label: 'Home', path: '/dashboard' },
     { icon: Search, label: 'Explore', path: '/explore' },
+    { icon: Sparkles, label: 'AI Coach', path: '/coach' },
     { icon: MessageCircle, label: 'Messages', path: '/messages' },
     { icon: User, label: 'Profile', path: '/profile' }
   ];

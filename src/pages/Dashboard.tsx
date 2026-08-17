@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { api } from '../lib/api';
-import { User as UserIcon, Loader2, Check, X, Calendar, Clock, MapPin, Settings as SettingsIcon } from 'lucide-react';
+import { User as UserIcon, Loader2, Check, X, Calendar, Clock, MapPin, Settings as SettingsIcon, Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { NotificationBell } from '../components/NotificationBell';
 import { SEO } from '../components/SEO';
@@ -140,7 +140,7 @@ export const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-28 md:pb-8">
       <SEO title={`Dashboard | ${profile?.full_name || 'SkillSync'}`} />
       {/* Dashboard Topbar */}
       <div className="bg-card border-b border-border px-6 py-4 flex justify-between items-center sticky top-0 z-30 shadow-sm transition-colors duration-300">
@@ -160,6 +160,13 @@ export const Dashboard = () => {
             title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
           >
             {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+          </button>
+          <button 
+            onClick={() => navigate('/coach')}
+            className="p-2 hover:bg-muted rounded-full transition-colors text-foreground/60 hover:text-foreground"
+            title="AI Career Coach"
+          >
+            <Sparkles className="w-5 h-5 text-primary" />
           </button>
           <NotificationBell />
           <button onClick={() => navigate('/profile')} className="p-2 hover:bg-muted rounded-full transition-colors text-foreground/60 hover:text-foreground">
@@ -194,6 +201,27 @@ export const Dashboard = () => {
           <div className="absolute right-0 top-0 bottom-0 w-64 bg-white/10 skew-x-12 translate-x-16"></div>
         </div>
 
+        {/* AI Career Coach Promotion */}
+        <div className="bg-card border border-primary/20 rounded-3xl p-6 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6 transition-all hover:border-primary/40 duration-300">
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary shrink-0">
+              <Sparkles className="w-6 h-6 animate-pulse" />
+            </div>
+            <div>
+              <h3 className="text-lg font-bold">Try Coach Gemini (Beta)</h3>
+              <p className="text-sm text-foreground/60 mt-1 max-w-xl">
+                Uncover hidden skill gaps, map customized learning paths, and get instant feedback on your profile with our new AI Coach.
+              </p>
+            </div>
+          </div>
+          <button 
+            onClick={() => navigate('/coach')}
+            className="w-full md:w-auto px-6 py-3 bg-primary text-white rounded-xl font-bold text-sm shadow-md hover:-translate-y-0.5 transition-all shrink-0"
+          >
+            Chat with Coach
+          </button>
+        </div>
+
         {/* Active Connections */}
         {activeConnections.length > 0 && (
           <div>
@@ -201,12 +229,16 @@ export const Dashboard = () => {
             <div className="grid md:grid-cols-2 gap-4">
               {activeConnections.map(conn => (
                 <div key={conn.id} className="bg-card p-5 rounded-2xl shadow-sm border border-border flex gap-4 items-center">
-                  <div className="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold text-lg shrink-0">
-                    {conn.profile.full_name?.charAt(0) || 'U'}
+                  <div className="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold text-lg shrink-0 overflow-hidden">
+                    {conn.profile.avatar_url ? (
+                      <img src={conn.profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
+                    ) : (
+                      conn.profile.full_name?.charAt(0) || 'U'
+                    )}
                   </div>
                   <div className="flex-1">
                     <h3 className="font-bold text-lg">{conn.profile.full_name}</h3>
-                    <p className="text-sm text-foreground/60">{conn.profile.location || "Location hidden"}</p>
+                    <p className="text-sm text-foreground/60">{conn.profile.show_location ? (conn.profile.location || "No location provided") : "Location hidden"}</p>
                   </div>
                   <button onClick={() => navigate('/messages')} className="px-4 py-2 bg-primary/10 text-primary rounded-lg font-bold text-sm hover:bg-primary hover:text-white transition-colors">
                     Message
@@ -271,8 +303,12 @@ export const Dashboard = () => {
             <div className="grid md:grid-cols-2 gap-4">
               {pendingRequests.map(req => (
                 <div key={req.id} className="bg-card p-5 rounded-2xl shadow-sm border border-border flex gap-4">
-                  <div className="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold text-lg shrink-0">
-                    {req.profiles.full_name?.charAt(0) || 'U'}
+                  <div className="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold text-lg shrink-0 overflow-hidden">
+                    {req.profiles.avatar_url ? (
+                      <img src={req.profiles.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
+                    ) : (
+                      req.profiles.full_name?.charAt(0) || 'U'
+                    )}
                   </div>
                   <div className="flex-1">
                     <h3 className="font-bold text-lg">{req.profiles.full_name}</h3>
@@ -308,12 +344,16 @@ export const Dashboard = () => {
               {recommendations.map(rec => (
                 <div key={rec.profile.id} className="bg-card p-6 rounded-3xl shadow-sm border border-border hover:shadow-md transition-all duration-300">
                   <div className="flex gap-4 mb-4">
-                    <div className="w-14 h-14 bg-primary/5 text-primary rounded-full flex items-center justify-center font-bold text-xl shrink-0">
-                      {rec.profile.full_name?.charAt(0) || 'U'}
+                    <div className="w-14 h-14 bg-primary/5 text-primary rounded-full flex items-center justify-center font-bold text-xl shrink-0 overflow-hidden">
+                      {rec.profile.avatar_url ? (
+                        <img src={rec.profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
+                      ) : (
+                        rec.profile.full_name?.charAt(0) || 'U'
+                      )}
                     </div>
                     <div>
                       <h3 className="font-bold text-lg leading-tight text-foreground">{rec.profile.full_name || "SkillSync Member"}</h3>
-                      <p className="text-sm text-foreground/50">{rec.profile.location || "Location hidden"}</p>
+                      <p className="text-sm text-foreground/50">{rec.profile.show_location ? (rec.profile.location || "No location provided") : "Location hidden"}</p>
                     </div>
                   </div>
                   <p className="text-foreground/60 text-sm mb-4 line-clamp-2">

@@ -78,12 +78,15 @@ export const Onboarding = () => {
                 autoFocus
               />
             </div>
-          <div className="fixed bottom-0 left-0 right-0 w-full px-6 pb-6 pt-4 bg-background z-50 shadow-[0_-10px_20px_rgba(0,0,0,0.05)] border-t border-border">
+          <div className="fixed bottom-0 left-0 right-0 w-full px-6 pt-4 pb-8 pb-safe bg-card/95 backdrop-blur-md z-50 shadow-[0_-10px_25px_rgba(0,0,0,0.15)] border-t border-border">
             <div className="max-w-lg mx-auto">
+              {!fullName.trim() && (
+                <p className="text-center text-xs font-semibold text-clay/80 mb-2">Please enter your name to continue</p>
+              )}
               <button 
                 onClick={() => setStep(2)}
                 disabled={!fullName.trim()}
-                className="w-full py-4 bg-foreground text-background rounded-xl font-bold text-lg disabled:opacity-50 shadow-lg transition-all"
+                className="w-full py-4 bg-primary text-white rounded-2xl font-bold text-lg disabled:opacity-40 disabled:bg-foreground/20 shadow-xl transition-all active:scale-[0.98]"
               >
                 Get Started
               </button>
@@ -101,28 +104,33 @@ export const Onboarding = () => {
                 <button 
                   key={skill.id} 
                   onClick={() => toggleSkill(skill.id, selectedOffers, setSelectedOffers)}
-                  className={`px-5 py-3 rounded-full font-medium border-2 transition-colors ${isSelected ? 'border-secondary bg-secondary/10 text-secondary' : 'border-border text-foreground/60 hover:border-foreground/20'}`}
+                  className={`px-5 py-3 rounded-full font-medium border-2 transition-colors ${isSelected ? 'border-primary bg-primary/10 text-primary font-bold' : 'border-border text-foreground/60 hover:border-foreground/20'}`}
                 >
                   {skill.name}
                 </button>
               );
             })}
           </div>
-          <div className="fixed bottom-0 left-0 right-0 w-full px-6 pb-6 pt-4 bg-background z-50 shadow-[0_-10px_20px_rgba(0,0,0,0.05)] border-t border-border">
-            <div className="max-w-lg mx-auto flex gap-4">
-              <button 
-                onClick={() => setStep(1)}
-                className="px-6 py-4 border-2 border-border text-foreground/60 rounded-xl font-bold text-lg"
-              >
-                Back
-              </button>
-              <button 
-                onClick={() => setStep(3)}
-                disabled={selectedOffers.length === 0}
-                className="flex-1 py-4 bg-foreground text-background rounded-xl font-bold text-lg disabled:opacity-50 shadow-lg transition-all"
-              >
-                Next Step
-              </button>
+          <div className="fixed bottom-0 left-0 right-0 w-full px-6 pt-4 pb-8 pb-safe bg-card/95 backdrop-blur-md z-50 shadow-[0_-10px_25px_rgba(0,0,0,0.15)] border-t border-border">
+            <div className="max-w-lg mx-auto">
+              {selectedOffers.length === 0 && (
+                <p className="text-center text-xs font-semibold text-clay/80 mb-2">Select at least 1 skill you can teach</p>
+              )}
+              <div className="flex gap-4">
+                <button 
+                  onClick={() => setStep(1)}
+                  className="px-6 py-4 border-2 border-border bg-muted text-foreground rounded-2xl font-bold text-lg active:scale-[0.98] transition-all"
+                >
+                  Back
+                </button>
+                <button 
+                  onClick={() => setStep(3)}
+                  disabled={selectedOffers.length === 0}
+                  className="flex-1 py-4 bg-primary text-white rounded-2xl font-bold text-lg disabled:opacity-40 disabled:bg-foreground/20 shadow-xl transition-all active:scale-[0.98]"
+                >
+                  Next Step
+                </button>
+              </div>
             </div>
           </div>
         </>
@@ -137,7 +145,7 @@ export const Onboarding = () => {
                 <button 
                   key={skill.id} 
                   onClick={() => toggleSkill(skill.id, selectedSeeks, setSelectedSeeks)}
-                  className={`px-5 py-3 rounded-full font-medium border-2 transition-colors ${isSelected ? 'border-primary bg-primary/10 text-primary' : 'border-border text-foreground/60 hover:border-foreground/20'}`}
+                  className={`px-5 py-3 rounded-full font-medium border-2 transition-colors ${isSelected ? 'border-primary bg-primary/10 text-primary font-bold' : 'border-border text-foreground/60 hover:border-foreground/20'}`}
                 >
                   {skill.name}
                 </button>
@@ -145,30 +153,35 @@ export const Onboarding = () => {
             })}
           </div>
 
-          <div className="mt-12 p-6 bg-muted rounded-2xl border border-border">
+          <div className="mt-8 p-6 bg-card rounded-2xl border border-border">
             <h3 className="font-bold text-lg mb-2 text-foreground">Setup Summary</h3>
-            <div className="space-y-2 text-sm text-foreground/60">
+            <div className="space-y-2 text-sm text-foreground/70">
               <p><span className="font-semibold text-foreground">Name:</span> {fullName}</p>
-              <p><span className="font-semibold text-foreground">Offering:</span> {selectedOffers.map(id => allSkills.find(s => s.id === id)?.name).join(', ')}</p>
-              <p><span className="font-semibold text-foreground">Learning:</span> {selectedSeeks.map(id => allSkills.find(s => s.id === id)?.name).join(', ')}</p>
+              <p><span className="font-semibold text-foreground">Offering:</span> {selectedOffers.map(id => allSkills.find(s => s.id === id)?.name).join(', ') || 'None selected'}</p>
+              <p><span className="font-semibold text-foreground">Learning:</span> {selectedSeeks.map(id => allSkills.find(s => s.id === id)?.name).join(', ') || 'None selected'}</p>
             </div>
           </div>
 
-          <div className="fixed bottom-0 left-0 right-0 w-full px-6 pb-6 pt-4 bg-background z-50 shadow-[0_-10px_20px_rgba(0,0,0,0.05)] border-t border-border">
-            <div className="max-w-lg mx-auto flex gap-4">
-              <button 
-                onClick={() => setStep(2)}
-                className="px-6 py-4 border-2 border-border text-foreground/60 rounded-xl font-bold text-lg"
-              >
-                Back
-              </button>
-              <button 
-                onClick={handleComplete}
-                disabled={selectedSeeks.length === 0 || saving}
-                className="flex-1 py-4 bg-foreground text-background rounded-xl font-bold text-lg disabled:opacity-50 flex items-center justify-center gap-2 shadow-lg transition-all"
-              >
-                {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Finish Setup'}
-              </button>
+          <div className="fixed bottom-0 left-0 right-0 w-full px-6 pt-4 pb-8 pb-safe bg-card/95 backdrop-blur-md z-50 shadow-[0_-10px_25px_rgba(0,0,0,0.15)] border-t border-border">
+            <div className="max-w-lg mx-auto">
+              {selectedSeeks.length === 0 && (
+                <p className="text-center text-xs font-semibold text-clay/80 mb-2">Select at least 1 skill you want to learn</p>
+              )}
+              <div className="flex gap-4">
+                <button 
+                  onClick={() => setStep(2)}
+                  className="px-6 py-4 border-2 border-border bg-muted text-foreground rounded-2xl font-bold text-lg active:scale-[0.98] transition-all"
+                >
+                  Back
+                </button>
+                <button 
+                  onClick={handleComplete}
+                  disabled={selectedSeeks.length === 0 || saving}
+                  className="flex-1 py-4 bg-primary text-white rounded-2xl font-bold text-lg disabled:opacity-40 disabled:bg-foreground/20 flex items-center justify-center gap-2 shadow-xl transition-all active:scale-[0.98]"
+                >
+                  {saving ? <Loader2 className="w-6 h-6 animate-spin" /> : 'Finish Setup'}
+                </button>
+              </div>
             </div>
           </div>
         </>

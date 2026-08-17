@@ -19,6 +19,7 @@ CREATE TABLE public.skills (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   name TEXT UNIQUE NOT NULL,
   category TEXT NOT NULL,
+  [0w4]
   created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
@@ -108,3 +109,25 @@ INSERT INTO public.skills (name, category) VALUES
   ('Sourdough Baking', 'Cooking'),
   ('Vinyasa Yoga', 'Fitness')
 ON CONFLICT (name) DO NOTHING;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

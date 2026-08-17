@@ -154,8 +154,12 @@ export const Messages = () => {
                 onClick={() => setActiveChat(conn)}
                 className={`w-full text-left p-4 border-b border-border flex items-center gap-3 transition-colors ${activeChat?.id === conn.id ? 'bg-primary/5' : 'hover:bg-muted'}`}
               >
-                <div className="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold text-lg shrink-0">
-                  {conn.profile.full_name?.charAt(0) || 'U'}
+                <div className="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold text-lg shrink-0 overflow-hidden">
+                  {conn.profile.avatar_url ? (
+                    <img src={conn.profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
+                  ) : (
+                    conn.profile.full_name?.charAt(0) || 'U'
+                  )}
                 </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="font-bold text-base truncate">{conn.profile.full_name}</h3>
@@ -176,8 +180,12 @@ export const Messages = () => {
               <button onClick={() => setActiveChat(null)} className="md:hidden p-2 hover:bg-muted rounded-full text-foreground/60">
                 <ArrowLeft className="w-5 h-5" />
               </button>
-              <div className="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold text-lg">
-                {activeChat.profile.full_name?.charAt(0) || 'U'}
+              <div className="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold text-lg shrink-0 overflow-hidden">
+                {activeChat.profile.avatar_url ? (
+                  <img src={activeChat.profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
+                ) : (
+                  activeChat.profile.full_name?.charAt(0) || 'U'
+                )}
               </div>
               <div className="flex-1">
                 <h2 className="font-bold text-lg">{activeChat.profile.full_name}</h2>

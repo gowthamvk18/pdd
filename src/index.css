@@ -98,6 +98,14 @@
   .animate-pulse-ring {
     animation: pulse-ring 2s infinite;
   }
+
+  .pb-safe {
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0.75rem));
+  }
+
+  .pt-safe {
+    padding-top: max(0.75rem, env(safe-area-inset-top, 0.75rem));
+  }
 }
 
 @keyframes fade-up {

@@ -27,6 +27,23 @@ export const api = {
     return data;
   },
 
+  async uploadAvatar(userId: string, file: File) {
+    const fileExt = file.name.split('.').pop();
+    const filePath = `${userId}-${Math.random()}.${fileExt}`;
+    
+    const { error: uploadError } = await supabase.storage
+      .from('avatars')
+      .upload(filePath, file);
+      
+    if (uploadError) throw uploadError;
+    
+    const { data } = supabase.storage
+      .from('avatars')
+      .getPublicUrl(filePath);
+      
+    return data.publicUrl;
+  },
+
   // Skills
   async getAllSkills() {
     const { data, error } = await (supabase as any)
@@ -127,7 +144,7 @@ export const api = {
     const userIds = [...new Set(validOfferings.map((o: any) => o.user_id))];
     const offSkillIds = [...new Set(validOfferings.map((o: any) => o.skill_id))];
 
-    const { data: profiles } = await (supabase as any).from('profiles').select('*').in('id', userIds);
+    const { data: profiles } = await (supabase as any).from('profiles').select('*').in('id', userIds).eq('is_public', true);
     const { data: skills } = await (supabase as any).from('skills').select('*').in('id', offSkillIds);
 
     // Group by user
@@ -145,7 +162,7 @@ export const api = {
       }
     });
 
-    return Array.from(userMap.values());
+    return Array.from(userMap.values()).filter((u: any) => u.profile);
   },
 
   async requestMatch(user1Id: string, user2Id: string) {
@@ -270,7 +287,7 @@ export const api = {
     const userIds = [...new Set(offerings.map((o: any) => o.user_id))];
     const skillIds = [...new Set(offerings.map((o: any) => o.skill_id))];
 
-    const { data: profiles } = await (supabase as any).from('profiles').select('*').in('id', userIds);
+    const { data: profiles } = await (supabase as any).from('profiles').select('*').in('id', userIds).eq('is_public', true);
     const { data: skills } = await (supabase as any).from('skills').select('*').in('id', skillIds);
 
     // Group by user
@@ -288,7 +305,7 @@ export const api = {
       }
     });
 
-    let results = Array.from(userMap.values());
+    let results = Array.from(userMap.values()).filter((u: any) => u.profile);
     
     // Client-side filtering if search query exists
     if (searchQuery) {

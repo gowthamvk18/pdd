@@ -1,0 +1,16 @@
+{
+  "name": "skillsync-selenium-tests",
+  "version": "1.0.0",
+  "description": "E2E Selenium/Appium automated test suite, multi-tab workflow, load testing, and Excel report generator for SkillSync",
+  "main": "test_runner.js",
+  "scripts": {
+    "test": "node test_runner.js",
+    "load-test": "node load_test.js",
+    "generate-report": "node generate_excel_report.js",
+    "all": "node test_runner.js && node load_test.js && node generate_excel_report.js"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0",
+    "selenium-webdriver": "^4.28.1"
+  }
+}
