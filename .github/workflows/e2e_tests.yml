@@ -1,4 +1,4 @@
-name: SkillSync E2E Tests & Load Testing
+name: SkillSync E2E, Appium Mobile & Load Testing
 
 on:
   push:
@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  e2e-and-load-test:
-    name: Run E2E Test Suite & Load Test
+  e2e-load-and-appium-tests:
+    name: Run Selenium E2E, Load Tests & Appium Mobile Suite
     runs-on: ubuntu-latest
 
     steps:
@@ -22,21 +22,27 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install Selenium Tests Dependencies
+      - name: Install Selenium & Appium Dependencies
         run: |
-          cd selenium_tests
-          npm install
+          cd selenium_tests && npm install
+          cd ../appium_tests && npm install
 
-      - name: Run E2E Test Suite, Multi-Tab Sync & 100-VU Load Test
+      - name: Run Selenium E2E Suite, Multi-Tab Sync & Load Test
         run: |
           cd selenium_tests
+          npm run all
+
+      - name: Run Appium Mobile E2E Test Suite
+        run: |
+          cd appium_tests
           npm run all
 
       - name: Upload Excel Test Reports Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: SkillSync_Load_Performance_and_E2E_Test_Reports
+          name: SkillSync_Complete_Testing_Reports
           path: |
             selenium_tests/Load_Performance_300_TestCases_Analysis_Report.xlsx
             selenium_tests/SkillSync_E2E_Test_Report.xlsx
+            appium_tests/SkillSync_Appium_Mobile_Test_Report.xlsx
           retention-days: 30

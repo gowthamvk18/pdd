@@ -10,7 +10,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "seed": "node scripts/seed.js"
+    "seed": "node scripts/seed.js",
+    "appium-test": "cd appium_tests && npm test"
   },
   "dependencies": {
     "@capacitor/android": "^8.3.1",

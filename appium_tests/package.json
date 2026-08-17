@@ -1,0 +1,15 @@
+{
+  "name": "skillsync-appium-mobile-tests",
+  "version": "1.0.0",
+  "description": "Appium Mobile Automated End-to-End Test Suite for SkillSync Android Application",
+  "main": "appium_test_runner.js",
+  "scripts": {
+    "test": "node appium_test_runner.js",
+    "report": "node generate_appium_excel_report.js",
+    "all": "node appium_test_runner.js"
+  },
+  "dependencies": {
+    "webdriverio": "^8.40.0",
+    "exceljs": "^4.4.0"
+  }
+}
