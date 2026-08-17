@@ -1,9 +1,11 @@
 {
-  "name": "temp-app",
+  "name": "skillsync-app",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "expo start",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
@@ -20,10 +22,14 @@
     "@supabase/supabase-js": "^2.105.1",
     "@tailwindcss/vite": "^4.2.4",
     "@types/three": "^0.184.0",
+    "expo": "^57.0.13",
     "lucide-react": "^1.9.0",
     "pptxgenjs": "^4.0.1",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
+    "react-native": "^0.86.2",
+    "react-native-web": "^0.21.2",
+    "react-native-webview": "^14.0.1",
     "react-router-dom": "^7.14.2",
     "tailwindcss": "^4.2.4",
     "three": "^0.184.0"

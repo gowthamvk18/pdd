@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "SkillSync",
+    "slug": "skillsync-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./public/logo.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./public/logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0f172a"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./public/logo.png",
+        "backgroundColor": "#0f172a"
+      },
+      "package": "com.skillsync.app",
+      "jsEngine": "jsc"
+    },
+    "web": {
+      "favicon": "./public/logo.png"
+    }
+  }
+}
