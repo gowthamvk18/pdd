@@ -389,7 +389,21 @@ const testCases = [
   { id: 'TC-347', category: 'Protected Routes', title: 'Verify Unauthenticated Access to /messages Redirects to /', target: 'window.location', expected: 'Redirects to landing page' },
   { id: 'TC-348', category: 'Protected Routes', title: 'Verify Unauthenticated Access to /coach Redirects to /', target: 'window.location', expected: 'Redirects to landing page' },
   { id: 'TC-349', category: 'Protected Routes', title: 'Verify Unauthenticated Access to /profile Redirects to /', target: 'window.location', expected: 'Redirects to landing page' },
-  { id: 'TC-350', category: 'Protected Routes', title: 'Verify Unauthenticated Access to /settings Redirects to /', target: 'window.location', expected: 'Redirects to landing page' }
+  { id: 'TC-350', category: 'Protected Routes', title: 'Verify Unauthenticated Access to /settings Redirects to /', target: 'window.location', expected: 'Redirects to landing page' },
+
+  // ==========================================
+  // MODULE I: ADVANCED REAL-TIME & SYSTEM RECOVERY (TC-351 to TC-360)
+  // ==========================================
+  { id: 'TC-351', category: 'Real-Time Channel', title: 'Verify Supabase Realtime WebSocket Connection Handshake', target: 'supabase.channel("public:messages")', expected: 'State CONNECTED' },
+  { id: 'TC-352', category: 'Real-Time Channel', title: 'Verify Real-Time Match Notification Broadcast Listener', target: 'supabase.channel("public:matches")', expected: 'Fires INSERT payload listener' },
+  { id: 'TC-353', category: 'AI Study Plan Export', title: 'Verify "Export Study Plan" Action Button Click', target: 'button:contains("Export Plan")', expected: 'Downloads study plan document' },
+  { id: 'TC-354', category: 'AI Study Plan Export', title: 'Verify "Share Study Plan" Modal Action Button', target: 'button:contains("Share Plan")', expected: 'Opens sharing modal link' },
+  { id: 'TC-355', category: 'Advanced Filter', title: 'Verify Search Filter by Minimum Rating (4+ Stars)', target: 'select.rating-filter', expected: 'Filters users with 4+ stars' },
+  { id: 'TC-356', category: 'Advanced Filter', title: 'Verify Search Filter by Online-Only Swappers', target: 'input[type="checkbox"].online-only', expected: 'Shows online users only' },
+  { id: 'TC-357', category: 'Notification System', title: 'Verify Browser Push Notification Permission Prompt', target: 'Notification.requestPermission()', expected: 'Returns GRANTED' },
+  { id: 'TC-358', category: 'Notification System', title: 'Verify Sound Effects Alert Toggle Switch', target: 'input.sound-alert-toggle', expected: 'Toggles audio alert state' },
+  { id: 'TC-359', category: 'Mobile Safe Area', title: 'Verify Mobile Onboarding Submit Bar Elevation (pb-safe)', target: 'div.fixed.bottom-0.pb-safe', expected: 'Elevated above navigation bar' },
+  { id: 'TC-360', category: 'Mobile Safe Area', title: 'Verify Mobile Navigation Bar High-Contrast Route Highlight', target: 'div.fixed.bottom-0 .active-nav-item', expected: 'High contrast primary styling' }
 ];
 
 module.exports = {
