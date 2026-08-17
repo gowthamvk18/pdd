@@ -32,9 +32,11 @@ jobs:
           cd selenium_tests
           npm run all
 
-      - name: Upload Excel Test Report Artifact
+      - name: Upload Excel Test Reports Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: SkillSync_E2E_Test_Report
-          path: selenium_tests/SkillSync_E2E_Test_Report.xlsx
+          name: SkillSync_Load_Performance_and_E2E_Test_Reports
+          path: |
+            selenium_tests/Load_Performance_300_TestCases_Analysis_Report.xlsx
+            selenium_tests/SkillSync_E2E_Test_Report.xlsx
           retention-days: 30
