@@ -7,6 +7,10 @@ on:
     branches: [ main, master ]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  deployments: write
+
 jobs:
   e2e-load-appium-and-security-tests:
     name: Run Selenium E2E, Appium Mobile, Load & Security Audit Suite
@@ -47,3 +51,28 @@ jobs:
             appium_tests/SkillSync_Appium_Mobile_Test_Report.xlsx
             selenium_tests/SkillSync_Security_Vulnerability_Audit_Report.xlsx
           retention-days: 30
+
+      - name: Publish GitHub Deployment Status
+        if: github.ref == 'refs/heads/main'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const deployment = await github.rest.repos.createDeployment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: context.sha,
+              environment: 'production',
+              description: 'SkillSync Production Web App Deployment',
+              required_contexts: [],
+              auto_merge: false
+            });
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: deployment.data.id,
+              state: 'success',
+              environment_url: 'https://skillsync-app-rho.vercel.app',
+              log_url: 'https://skillsync-app-rho.vercel.app',
+              description: 'Deployment is live on Vercel'
+            });
+
